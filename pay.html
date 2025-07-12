@@ -1,0 +1,236 @@
+<!-- templates/pay.html -->
+<!DOCTYPE html>
+<html>
+<style>
+    .game {
+        font-family: Arial, Helvetica, sans-serif;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    body {
+        text-align: center;
+        background-color: lightgrey;
+    }
+
+    .game img {
+        display: block;
+        max-width: 90%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    @media only screen and (min-width: 100px) {
+
+        .game {
+            width: 45%;
+            float: left;
+            height: 600px;
+
+        }
+
+    }
+
+    @media only screen and (min-width: 1400px) {
+
+        .game {
+            width: 9%;
+            float: none;
+            height: 200px;
+        }
+
+    }
+
+    p {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align: center;
+    }
+
+    h2 {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    button {
+        height: 50px;
+        width: 200px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: large;
+        border: lightgreen solid 5px;
+
+    }
+</style>
+
+<head>
+    <title>Vending Machine</title>
+
+
+    <!-- Google Pay SDK -->
+    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
+</head>
+
+
+</head>
+
+<body>
+    <h1>Smart Vending Machine</h1>
+    <p>Machine ID: {{ machine_id }}</p>
+    <!--  <p>Amount payed: ₹{{ amount }}</p>-->
+
+    <h1>Avaialbe Products</h1>
+    <div class="game">
+        <h2>Chips </h2>
+        <img src="{{ url_for('static', filename='chips.jpeg') }}" alt="Chips">
+        <p>Amount=20.</p>
+        <button onclick="addchips()">Add to Cart</button>
+        <p>Number of chips selected:</p>
+        <p id="chipsno"></p>
+        <p>Total price of chips: </p>
+        <p id="chipsprice"></p>
+
+    </div>
+    <div class="game">
+        <h2>Juice</h2>
+        <img src="{{ url_for('static', filename='juice.jpeg') }}" alt="Juice">
+        <p>Amount=20.</p>
+        <button onclick="addjuice()">Add to Cart</button>
+        <p>Number of chips selected:</p>
+        <p id="juiceno"></p>
+        <p>Total price of juice: </p>
+        <p id="juiceprice"></p>
+    </div>
+    <div class="game">
+        <h2>Biscuit</h2>
+        <img src="{{ url_for('static', filename='biscuit.jpeg') }}" alt="Biscuit">
+        <p>Amount=10.</p>
+        <button onclick="addbiscuit()">Add to Cart</button>
+        <p>Number of biscuits selected: </p>
+        <p id="biscuitno"></p>
+        <p>Total price of biscuit: </p>
+        <p id="biscuitprice"></p>
+
+    </div>
+    <div class="game">
+        <h2>chocolate</h2>
+        <img src="{{ url_for('static', filename='chocolate.jpeg') }}" alt="Chocolate">
+        <p>Amount=15.</p>
+        <button onclick="addchocolate()">Add to Cart</button>
+        <p>Number of chocolates selected: </p>
+        <p id="chocolateno"></p>
+        <p>Total price of chocolate: </p>
+        <p id="chocolateprice"></p>
+
+    </div>
+    <!--<h2>Total amount to be paid: </h2>
+    <h1>Show total amount: </h1>-->
+
+    <button onclick="totalamount()">Total Amount:</button>
+    <P id="totalamount"></P>
+
+
+    <!-- <a href="{{ url_for('payment', chips=20, juice=40, biscuit=10, chocolate=15) }}">Pay Now</a>-->
+    <script src="https://js.stripe.com/v3/"></script>
+    <button id="checkout-button">Pay ₹50</button>
+
+    <script>
+        const stripeInstance = Stripe('pk_test_51PYWS0RrMhyZ8aXWimGr7SSd5nm7vpK44yhZPz0uFIlEmEJ9hL1HxXq8snrmoQBNdcRpVy3mPW4rpkCSbEOxpBmD00ZwoehiXT'); // your actual publishable key
+
+        let total_price = 0;
+        let no_chips = 0;
+        let no_juice = 0;
+        let no_biscuit = 0;
+        let no_chocolate = 0;
+        let chips_price = 0, juice_price = 0, biscuit_price = 0, chocolate_price = 0;
+
+        function totalamount() {
+            total_price = chips_price + juice_price + biscuit_price + chocolate_price;
+            document.getElementById("totalamount").textContent = "Total: ₹" + total_price;
+            document.getElementById("checkout-button").textContent = "Pay ₹" + total_price;
+        }
+
+        function addchips() {
+            no_chips += 1;
+            document.getElementById("chipsno").textContent = no_chips;
+            chips_price = no_chips * 20;
+            document.getElementById("chipsprice").textContent = chips_price;
+            totalamount();
+        }
+        function addjuice() {
+            no_juice += 1;
+            document.getElementById("juiceno").textContent = no_juice;
+            juice_price = no_juice * 20;
+            document.getElementById("juiceprice").textContent = juice_price;
+            totalamount();
+        }
+        function addbiscuit() {
+            no_biscuit += 1;
+            document.getElementById("biscuitno").textContent = no_biscuit;
+            biscuit_price = no_biscuit * 10;
+            document.getElementById("biscuitprice").textContent = biscuit_price;
+            totalamount();
+        }
+        function addchocolate() {
+            no_chocolate += 1;
+            document.getElementById("chocolateno").textContent = no_chocolate;
+            chocolate_price = no_chocolate * 15;
+            document.getElementById("chocolateprice").textContent = chocolate_price;
+            totalamount();
+        }
+
+        document.getElementById('checkout-button').addEventListener('click', async () => {
+
+            if (total_price <= 0) {
+                alert("Please add some items to the cart before proceeding.");
+                return;
+            }
+            // Stripe minimum is 50 cents (USD), which is about ₹50. Enforce minimum.
+            if (total_price < 50) {
+                alert("Stripe requires a minimum payment of ₹50. Please add more items to your cart.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: total_price * 100 }) // convert to paise
+                });
+
+                const data = await response.json();
+
+                if (data.id) {
+                    stripeInstance.redirectToCheckout({ sessionId: data.id });
+                } else {
+                    console.error('Stripe session creation failed:', data.error);
+                    alert('Payment setup failed. Check console for details.');
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+                alert('Network error. See console.');
+            }
+        });
+    </script>
+
+
+
+
+    <!-- <a href="/verify?machine_id={{ machine_id }}"> </a> -->
+    <!-- Removed duplicate script block and merged logic above -->
+
+
+
+
+
+
+</body>
+
+
+</html>

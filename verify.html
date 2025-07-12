@@ -1,0 +1,20 @@
+<!-- templates/verify.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment Status</title>
+</head>
+
+<body>
+    {% if success %}
+    <h2>✅ Payment Successful!</h2>
+    <p>Your product is being dispensed...</p>
+    {% else %}
+    <h2>❌ No Pending Payment</h2>
+    <p>Please scan again to make a purchase.</p>
+    {% endif %}
+    <a href="/"><button>Go Back</button></a>
+</body>
+
+</html>

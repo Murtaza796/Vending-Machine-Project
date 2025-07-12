@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>payment</title>
+    <style>
+        button {
+            height: 50px;
+            width: 200px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: large;
+            border: lightblue solid 5px;
+
+        }
+
+        body {
+            text-align: center;
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+
+<body style="text-align: center;">
+    <h1 style="text-align: center;">Payment Successfull</h1>
+    <p style="text-align: center;">Your payment has been processed successfully.</p>
+    <p style="text-align: center;">Thank you for your purchase!</p>
+    <button> <a href="{{ url_for('pay') }}">HOME PAGE</a></button>
+    <!--  <div style="text-align: center;">
+        <a href="/" style="text-decoration: none; color: blue;">Return to Home</a>-->
+</body>
+
+</html>
