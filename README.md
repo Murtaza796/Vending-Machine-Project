@@ -17,3 +17,17 @@ In order to execute this project:
 | `flask`           | Web framework for backend               | `pip install flask`         |
 | `stripe`          | For handling payments via Stripe        | `pip install stripe`        |
 
+the order of folders and files stored:
+your-project-folder/
+│
+├── gpaycodetest.py               # Main Python script to run everything
+│
+├── qr_codes/                     # Folder to store generated QR code images
+│   └── machine_qr.png            # Generated QR code image
+│
+├── templates/                    # Flask HTML templates go here
+│   ├── pay.html                  # Payment page with QR scan and amount
+│   ├── payment.html              # After successful payment, item details shown
+│   └── verify.html               # Shows success or failure of payment
+
+
