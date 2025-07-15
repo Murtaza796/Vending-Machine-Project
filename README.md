@@ -19,6 +19,7 @@ In order to execute this project:
 
 the order of folders and files stored:
 your-project-folder/
+
 │
 ├── gpaycodetest.py               # Main Python script to run everything
 │
