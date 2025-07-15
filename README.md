@@ -17,6 +17,14 @@ In order to execute this project:
 | `flask`           | Web framework for backend               | `pip install flask`         |
 | `stripe`          | For handling payments via Stripe        | `pip install stripe`        |
 
+Always keep pay.html, payment.html, and verify.html inside the templates/ folder.
+
+qr_codes/ is created by the script, so you don’t need to create it manually.
+
+static/ is only needed if you're adding custom styles or scripts.
+
+
+
 the order of folders and files stored:
 your-project-folder/
 
